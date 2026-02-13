@@ -1,45 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>¿Quieres ser mi Valentine?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Ti 💖</title>
+
 <style>
 body{
-  background:#ff4d6d;
-  text-align:center;
-  font-family:Arial;
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#ff4d6d,#ff758f);
   color:white;
+  text-align:center;
+  overflow:hidden;
 }
+
+.contenedor{
+  padding:30px;
+}
+
+h1{
+  font-size:32px;
+  margin-bottom:20px;
+}
+
+.fotos{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-bottom:30px;
+}
+
+.fotos img{
+  width:140px;
+  height:140px;
+  object-fit:cover;
+  border-radius:20px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.3);
+  transition:0.4s;
+}
+
+.fotos img:hover{
+  transform:scale(1.1);
+}
+
 button{
   padding:15px 30px;
   font-size:20px;
   border:none;
-  border-radius:10px;
+  border-radius:30px;
   cursor:pointer;
+  margin:10px;
+  transition:0.3s;
 }
-#no{
+
+.si{
+  background:white;
+  color:#ff4d6d;
+}
+
+.no{
+  background:black;
+  color:white;
   position:absolute;
+}
+
+.corazon{
+  position:absolute;
+  font-size:20px;
+  animation:flotar 4s linear infinite;
+}
+
+@keyframes flotar{
+  0%{transform:translateY(100vh); opacity:1;}
+  100%{transform:translateY(-10vh); opacity:0;}
 }
 </style>
 </head>
+
 <body>
 
-<h1>¿Quieres ser mi Valentine? 💖</h1>
+<div class="contenedor">
+  <h1>¿Quieres ser mi Valentine? 💖</h1>
 
-<button onclick="aceptar()">SI</button>
-<button id="no" onmouseover="mover()">NO</button>
+  <div class="fotos">
+    <img src="IMG-20250921-WA0006.jpg">
+    <img src="IMG-20260213-WA0028.jpg">
+    <img src="IMG-20260213-WA0027.jpg">
+    <img src="IMG-20260213-WA0029.jpg">
+  </div>
+
+  <button class="si" onclick="aceptar()">SÍ 💘</button>
+  <button class="no" id="no" onmouseover="mover()">NO 😢</button>
+</div>
 
 <script>
 function aceptar(){
-  document.body.innerHTML="<h1>Sabía que dirías que sí 💕<br>Te amo infinitamente</h1>";
+  document.body.innerHTML = `
+  <h1 style="margin-top:40vh;">Sabía que dirías que sí 💕<br>
+  Eres lo mejor que me ha pasado 💖<br>
+  Te amo infinito ♾️</h1>`;
 }
 
 function mover(){
-  let x=Math.random()*300;
-  let y=Math.random()*300;
-  document.getElementById("no").style.left=x+"px";
-  document.getElementById("no").style.top=y+"px";
+  let boton = document.getElementById("no");
+  let x = Math.random() * (window.innerWidth - 100);
+  let y = Math.random() * (window.innerHeight - 50);
+  boton.style.left = x + "px";
+  boton.style.top = y + "px";
 }
+
+function crearCorazon(){
+  const corazon = document.createElement("div");
+  corazon.classList.add("corazon");
+  corazon.innerHTML="💖";
+  corazon.style.left = Math.random()*100+"vw";
+  corazon.style.fontSize = (Math.random()*20+15)+"px";
+  document.body.appendChild(corazon);
+
+  setTimeout(()=>{
+    corazon.remove();
+  },4000);
+}
+
+setInterval(crearCorazon,500);
 </script>
 
 </body>
