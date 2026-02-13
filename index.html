@@ -6,52 +6,36 @@
 <title>Para Ti 💖</title>
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
 body{
-  margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg,#ff4d6d,#ff758f);
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#ff4d6d,#ff758f);
   color:white;
-  text-align:center;
   overflow:hidden;
 }
 
-.contenedor{
-  padding:30px;
+/* PANTALLA INICIAL */
+.inicio{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:30px;
+  text-align:center;
 }
 
 h1{
-  font-size:32px;
-  margin-bottom:20px;
-}
-
-.fotos{
-  display:flex;
-  justify-content:center;
-  gap:15px;
-  flex-wrap:wrap;
-  margin-bottom:30px;
-}
-
-.fotos img{
-  width:140px;
-  height:140px;
-  object-fit:cover;
-  border-radius:20px;
-  box-shadow:0 10px 20px rgba(0,0,0,0.3);
-  transition:0.4s;
-}
-
-.fotos img:hover{
-  transform:scale(1.1);
+  font-size:28px;
 }
 
 button{
   padding:15px 30px;
-  font-size:20px;
+  font-size:18px;
   border:none;
   border-radius:30px;
   cursor:pointer;
-  margin:10px;
   transition:0.3s;
 }
 
@@ -66,65 +50,152 @@ button{
   position:absolute;
 }
 
-.corazon{
-  position:absolute;
-  font-size:20px;
-  animation:flotar 4s linear infinite;
+/* TRANSICIÓN CORAZONES */
+.transicion{
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+  background:#ff4d6d;
 }
 
-@keyframes flotar{
-  0%{transform:translateY(100vh); opacity:1;}
-  100%{transform:translateY(-10vh); opacity:0;}
+.transicion span{
+  font-size:40px;
+  animation:encoger 1.5s forwards;
+}
+
+@keyframes encoger{
+  0%{transform:scale(3);opacity:1;}
+  100%{transform:scale(0);opacity:0;}
+}
+
+/* PANTALLA FINAL */
+.final{
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ff4d6d,#ff758f);
+  opacity:0;
+  transition:1.5s;
+}
+
+.card{
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(15px);
+  padding:35px;
+  border-radius:25px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.3);
+  text-align:center;
+  max-width:90%;
+}
+
+.card h2{
+  font-size:24px;
+  margin-bottom:15px;
+}
+
+.card p{
+  font-size:16px;
+  margin-bottom:20px;
+}
+
+/* GALERÍA */
+.galeria{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.galeria img{
+  width:110px;
+  height:110px;
+  object-fit:cover;
+  border-radius:15px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.3);
+  opacity:0;
+  transform:translateY(20px);
+  animation:aparecer 1s forwards;
+}
+
+.galeria img:nth-child(1){animation-delay:0.3s;}
+.galeria img:nth-child(2){animation-delay:0.6s;}
+.galeria img:nth-child(3){animation-delay:0.9s;}
+.galeria img:nth-child(4){animation-delay:1.2s;}
+
+@keyframes aparecer{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="contenedor">
+<!-- INICIO -->
+<div class="inicio" id="inicio">
   <h1>¿Quieres ser mi Valentine? 💖</h1>
-
-  <div class="fotos">
-    <img src="IMG-20250921-WA0006.jpg">
-    <img src="IMG-20260213-WA0028.jpg">
-    <img src="IMG-20260213-WA0027.jpg">
-    <img src="IMG-20260213-WA0029.jpg">
-  </div>
-
   <button class="si" onclick="aceptar()">SÍ 💘</button>
   <button class="no" id="no" onmouseover="mover()">NO 😢</button>
 </div>
 
+<!-- TRANSICIÓN -->
+<div class="transicion" id="transicion"></div>
+
+<!-- FINAL -->
+<div class="final" id="final">
+  <div class="card">
+    <h2>Sabía que dirías que sí 💕</h2>
+    <p>Eres lo más bonito que me ha pasado.<br>
+    Gracias por existir 💖</p>
+
+    <div class="galeria">
+      <img src="IMG-20250921-WA0006.jpg">
+      <img src="IMG-20260213-WA0027.jpg">
+      <img src="IMG-20260213-WA0028.jpg">
+      <img src="IMG-20260213-WA0029.jpg">
+    </div>
+  </div>
+</div>
+
 <script>
-function aceptar(){
-  document.body.innerHTML = `
-  <h1 style="margin-top:40vh;">Sabía que dirías que sí 💕<br>
-  Eres lo mejor que me ha pasado 💖<br>
-  Te amo infinito ♾️</h1>`;
-}
-
 function mover(){
-  let boton = document.getElementById("no");
-  let x = Math.random() * (window.innerWidth - 100);
-  let y = Math.random() * (window.innerHeight - 50);
-  boton.style.left = x + "px";
-  boton.style.top = y + "px";
+  let boton=document.getElementById("no");
+  let x=Math.random()*(window.innerWidth-100);
+  let y=Math.random()*(window.innerHeight-50);
+  boton.style.left=x+"px";
+  boton.style.top=y+"px";
 }
 
-function crearCorazon(){
-  const corazon = document.createElement("div");
-  corazon.classList.add("corazon");
-  corazon.innerHTML="💖";
-  corazon.style.left = Math.random()*100+"vw";
-  corazon.style.fontSize = (Math.random()*20+15)+"px";
-  document.body.appendChild(corazon);
+function aceptar(){
+  document.getElementById("inicio").style.display="none";
+
+  let t=document.getElementById("transicion");
+  t.style.display="flex";
+
+  for(let i=0;i<40;i++){
+    let corazon=document.createElement("span");
+    corazon.innerHTML="💖";
+    t.appendChild(corazon);
+  }
 
   setTimeout(()=>{
-    corazon.remove();
-  },4000);
+    t.style.display="none";
+    document.getElementById("final").style.opacity="1";
+  },1500);
 }
-
-setInterval(crearCorazon,500);
 </script>
 
 </body>
