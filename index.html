@@ -15,7 +15,7 @@ body{
   overflow:hidden;
 }
 
-/* PANTALLA INICIAL */
+/* INICIO */
 .inicio{
   height:100vh;
   display:flex;
@@ -24,10 +24,6 @@ body{
   align-items:center;
   gap:30px;
   text-align:center;
-}
-
-h1{
-  font-size:28px;
 }
 
 button{
@@ -47,10 +43,10 @@ button{
 .no{
   background:black;
   color:white;
-  position:absolute;
+  position:fixed;
 }
 
-/* TRANSICIÓN CORAZONES */
+/* TRANSICIÓN */
 .transicion{
   position:fixed;
   width:100%;
@@ -74,7 +70,7 @@ button{
   100%{transform:scale(0);opacity:0;}
 }
 
-/* PANTALLA FINAL */
+/* FINAL */
 .final{
   position:fixed;
   width:100%;
@@ -99,18 +95,8 @@ button{
   max-width:90%;
 }
 
-.card h2{
-  font-size:24px;
-  margin-bottom:15px;
-}
-
-.card p{
-  font-size:16px;
-  margin-bottom:20px;
-}
-
-/* GALERÍA */
 .galeria{
+  margin-top:20px;
   display:flex;
   justify-content:center;
   gap:12px;
@@ -144,22 +130,18 @@ button{
 
 <body>
 
-<!-- INICIO -->
 <div class="inicio" id="inicio">
   <h1>¿Quieres ser mi Valentine? 💖</h1>
   <button class="si" onclick="aceptar()">SÍ 💘</button>
-  <button class="no" id="no" onmouseover="mover()">NO 😢</button>
+  <button class="no" id="no">NO 😢</button>
 </div>
 
-<!-- TRANSICIÓN -->
 <div class="transicion" id="transicion"></div>
 
-<!-- FINAL -->
 <div class="final" id="final">
   <div class="card">
     <h2>Sabía que dirías que sí 💕</h2>
-    <p>Eres lo más bonito que me ha pasado.<br>
-    Gracias por existir 💖</p>
+    <p>Eres lo más bonito que me ha pasado 💖</p>
 
     <div class="galeria">
       <img src="IMG-20250921-WA0006.jpg">
@@ -171,13 +153,17 @@ button{
 </div>
 
 <script>
+const botonNo = document.getElementById("no");
+
 function mover(){
-  let boton=document.getElementById("no");
-  let x=Math.random()*(window.innerWidth-100);
-  let y=Math.random()*(window.innerHeight-50);
-  boton.style.left=x+"px";
-  boton.style.top=y+"px";
+  let x = Math.random() * (window.innerWidth - 120);
+  let y = Math.random() * (window.innerHeight - 60);
+  botonNo.style.left = x + "px";
+  botonNo.style.top = y + "px";
 }
+
+botonNo.addEventListener("touchstart", mover);
+botonNo.addEventListener("mouseover", mover);
 
 function aceptar(){
   document.getElementById("inicio").style.display="none";
